@@ -1,4 +1,5 @@
 {
+	"name": "LexiKAN",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": ".",
@@ -6,6 +7,18 @@
 			"DEVUSER": "devuser",
 			"DEVUID": "1000",
 			"DEVGID": "1000"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools",
+				"amiralizadeh9480.cpp-helper",
+				"ms-vscode.cpptools-extension-pack",
+				"twxs.cmake",
+				"ms-vscode.cmake-tools",
+				"ms-azuretools.vscode-docker"
+			]
 		}
 	}
 }
