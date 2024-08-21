@@ -15,6 +15,7 @@ RUN apk add \
         lapack-dev \
         lua-dev \
         readline-dev \
+        openssh \
         sudo
 
 RUN adduser --uid ${DEVUID} --disabled-password --gecos "" ${DEVUSER} \
