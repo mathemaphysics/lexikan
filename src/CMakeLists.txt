@@ -27,8 +27,9 @@ target_include_directories(
         $<INSTALL_INTERFACE:include>
 )
 
-# Optionally, link other libraries if needed
-# target_link_libraries(${PROJECT_NAME} PRIVATE SomeOtherLibrary)
+if (BUILD_PYTHON)
+    add_subdirectory(python)
+endif()
 
 # Specify the properties for the library
 set_target_properties(
