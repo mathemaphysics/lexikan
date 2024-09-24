@@ -41,21 +41,3 @@ set_target_properties(
         EXPORT_NAME
             "${PROJECT_NAME}Base"
 )
-
-# Export the library for other projects to use
-install(
-    TARGETS "${PROJECT_NAME}Base"
-    EXPORT "${PROJECT_NAME}Targets"
-    ARCHIVE DESTINATION lib
-    LIBRARY DESTINATION lib
-    RUNTIME DESTINATION bin
-    INCLUDES DESTINATION include
-)
-
-# Export the target so that it can be imported by other CMake projects
-install(
-    EXPORT "${PROJECT_NAME}Targets"
-    FILE "${PROJECT_NAME}Config.cmake"
-    NAMESPACE ${PROJECT_NAME}::
-    DESTINATION "lib/cmake/${PROJECT_NAME}"
-)
