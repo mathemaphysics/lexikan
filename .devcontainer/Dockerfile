@@ -14,8 +14,11 @@ RUN apk add \
         git \
         lapack-dev \
         lua-dev \
+        boost-dev \
+        spdlog-dev \
         readline-dev \
         openssh \
+        doxygen \
         sudo
 
 RUN adduser --uid ${DEVUID} --disabled-password --gecos "" ${DEVUSER} \
