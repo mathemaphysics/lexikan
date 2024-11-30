@@ -19,6 +19,16 @@ find_package(
 	REQUIRED
 )
 
+if (BUILD_PYTHON)
+    find_package(
+        Python3
+        REQUIRED
+        COMPONENTS
+            Development
+            NumPy
+    )
+endif()
+
 add_subdirectory( src )
 add_subdirectory( app )
 

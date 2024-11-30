@@ -20,6 +20,9 @@ RUN apk add \
         openssh \
         doxygen \
         flatbuffers-dev \
+        python3 \
+        py3-numpy \
+        py3-numpy-dev \
         sudo
 
 RUN adduser --uid ${DEVUID} --disabled-password --gecos "" ${DEVUSER} \
