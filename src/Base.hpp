@@ -1,20 +1,14 @@
 #pragma once
 
-// std
-#include <string>
-#include <any>
+// Local
+#include "IHasUUID.hpp"
 
 namespace lexikan
 {
-
-class Base
-{
-public:
-    Base();
-    ~Base() = default;
-
-private:
-    std::any _value;
-};
-
+    class Base : public IHasUUID
+    {
+    public:
+        Base();
+        ~Base() = default;
+    };
 }

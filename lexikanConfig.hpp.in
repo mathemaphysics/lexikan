@@ -1,1 +1,2 @@
 #cmakedefine WITH_JSONCPP
+#define PROJECT_NAME "@PROJECT_NAME@"

@@ -3,11 +3,13 @@ set( target ${PROJECT_NAME} )
 set (
     sources
         Base.cpp
+        IHasUUID.cpp
 )
 
 set (
     headers
         Base.hpp
+        IHasUUID.hpp
 )
 
 # Create a library target
@@ -24,7 +26,14 @@ target_include_directories(
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+        $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
         $<INSTALL_INTERFACE:include>
+)
+
+target_link_libraries(
+    "${PROJECT_NAME}Base"
+        Boost::system
 )
 
 if (BUILD_PLUGIN)

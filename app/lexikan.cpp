@@ -29,7 +29,7 @@ int main(int argc, char** argv)
 {
 	// Options examples
 	int opt;
-	auto logger = sp::stderr_color_mt("__FILE__");
+	auto logger = sp::stderr_color_mt(PROJECT_NAME);
 
 	// Set up the program options
 	po::options_description options("Allowed options");
@@ -59,6 +59,8 @@ int main(int argc, char** argv)
 	}
 
 	logger->info("Welcome to lexikan!");
+
+	lexikan::Base x;
 
 	return 0;
 }
