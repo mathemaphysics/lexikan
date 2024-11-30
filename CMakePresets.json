@@ -1,0 +1,25 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "release-configure",
+            "displayName": "Configuration Release Mode",
+            "binaryDir": "build/${presetName}"
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "release-build",
+            "displayName": "Build Release Mode",
+            "configurePreset": "release-configure",
+            "configuration": "Release"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "release-testing",
+            "displayName": "Test Release Mode",
+            "configurePreset": "release-configure"
+        }
+    ]
+}

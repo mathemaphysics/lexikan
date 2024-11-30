@@ -1,4 +1,3 @@
-
 set( target ${PROJECT_NAME} )
 
 set (
@@ -25,6 +24,7 @@ target_link_libraries(
         Boost::program_options
         Boost::system
         spdlog::spdlog
+        $<$<BOOL:${WITH_JSONCPP}>:${JSONCPP_LIBRARIES}>
 )
 
 # Specify the include directories for the library
@@ -33,6 +33,8 @@ target_include_directories(
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+        $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
 # Optionally, link other libraries if needed

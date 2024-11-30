@@ -1,6 +1,14 @@
+// Configuration
+#include <lexikanConfig.hpp>
+
 // Logging
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
+
+// jsoncpp
+#ifdef WITH_JSONCPP
+#include <json/json.h>
+#endif
 
 // Program options
 #include <boost/program_options.hpp>

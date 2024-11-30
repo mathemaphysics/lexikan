@@ -27,6 +27,10 @@ target_include_directories(
         $<INSTALL_INTERFACE:include>
 )
 
+if (BUILD_PLUGIN)
+    add_subdirectory(plugin)
+endif()
+
 if (BUILD_PYTHON)
     add_subdirectory(python)
 endif()
