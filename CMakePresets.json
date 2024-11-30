@@ -4,7 +4,22 @@
         {
             "name": "release-configure",
             "displayName": "Configuration Release Mode",
-            "binaryDir": "build/${presetName}"
+            "description": "Basic configuration in Release mode",
+            "binaryDir": "build/${presetName}",
+            "installDir": "install/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "debug-configure",
+            "displayName": "Configuration Debug Mode",
+            "description": "Basic configuration in Debug mode",
+            "binaryDir": "build/${presetName}",
+            "installDir": "install/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
         }
     ],
     "buildPresets": [
@@ -12,7 +27,17 @@
             "name": "release-build",
             "displayName": "Build Release Mode",
             "configurePreset": "release-configure",
-            "configuration": "Release"
+            "configuration": "Release",
+            "environment": {
+            }
+        },
+        {
+            "name": "debug-build",
+            "displayName": "Build Debug Mode",
+            "configurePreset": "debug-configure",
+            "configuration": "Debug",
+            "environment": {
+            }
         }
     ],
     "testPresets": [
@@ -20,6 +45,11 @@
             "name": "release-testing",
             "displayName": "Test Release Mode",
             "configurePreset": "release-configure"
+        },
+        {
+            "name": "debug-testing",
+            "displayName": "Test Debug Mode",
+            "configurePreset": "debug-configure"
         }
     ]
 }
