@@ -19,6 +19,7 @@ RUN apk add \
         readline-dev \
         openssh \
         doxygen \
+        flatbuffers-dev \
         sudo
 
 RUN adduser --uid ${DEVUID} --disabled-password --gecos "" ${DEVUSER} \

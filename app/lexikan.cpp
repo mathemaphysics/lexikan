@@ -9,7 +9,9 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <sstream>
+
+// src
+#include "../src/Base.hpp"
 
 // Shorthand names
 namespace po = boost::program_options;
