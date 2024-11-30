@@ -95,3 +95,10 @@ install(
     DESTINATION
         "lib/cmake/${PROJECT_NAME}"
 )
+
+install(
+    FILES
+        "${CMAKE_BINARY_DIR}/${PROJECT_NAME}Config.hpp"
+    DESTINATION
+        "include/${PROJECT_NAME}"
+)
