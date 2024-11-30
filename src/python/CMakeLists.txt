@@ -16,4 +16,4 @@ set (
 )
 
 add_library(${target} SHARED ${sources} ${headers})
-target_link_libraries(${target} ${Libs})
+target_link_libraries(${target} ${libs})
