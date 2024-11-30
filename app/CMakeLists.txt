@@ -25,6 +25,7 @@ target_link_libraries(
         Boost::system
         spdlog::spdlog
         $<$<BOOL:${WITH_JSONCPP}>:${JSONCPP_LIBRARIES}>
+        "${PROJECT_NAME}Base"
 )
 
 # Specify the include directories for the library
