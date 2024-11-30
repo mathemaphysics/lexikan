@@ -11,8 +11,6 @@ namespace lexikan
 {
     Base::Base()
     {
-        auto str = this->toString();
-        auto logger = spdlog::get(PROJECT_NAME);
-        logger->info("UUID: {}", str);
+
     }
 }
