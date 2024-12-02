@@ -22,10 +22,10 @@ namespace lexikan
         return _id;
     }
 
-    std::string IHasUUID::toString() const
+    std::string IHasUUID::toString(boost::uuids::uuid id_)
     {
         auto uuidStream = std::ostringstream();
-        uuidStream << _id;
+        uuidStream << id_;
         return uuidStream.str();
     }
 }

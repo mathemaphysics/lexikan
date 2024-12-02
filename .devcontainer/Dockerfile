@@ -23,6 +23,7 @@ RUN apk add \
         python3 \
         py3-numpy \
         py3-numpy-dev \
+        poco-dev \
         sudo
 
 RUN adduser --uid ${DEVUID} --disabled-password --gecos "" ${DEVUSER} \

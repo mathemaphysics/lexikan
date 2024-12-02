@@ -11,6 +11,7 @@ option( BUILD_PYTHON "Build the python bindings" ON )
 option( BUILD_PLUGIN "Build the plugin architecture" ON )
 option( BUILD_DOC "Build the documentation" OFF )
 option( WITH_JSONCPP "Build with JsonCpp library" ON )
+option( WITH_POCO "Build with POCO library" ON )
 
 # Configure the headers
 configure_file(
@@ -41,6 +42,15 @@ if (WITH_JSONCPP)
     )
     # For some reason jsoncpp doesn't have a jsoncppConfig.cmake
     pkg_check_modules(JSONCPP jsoncpp)
+endif()
+
+if (WITH_POCO)
+    find_package(
+        Poco
+        REQUIRED
+        COMPONENTS
+            Net
+    )
 endif()
 
 # Find python items because we'll build the python bindings

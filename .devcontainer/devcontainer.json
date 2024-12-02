@@ -22,7 +22,8 @@
 				"ms-vscode-remote.remote-wsl",
 				"ms-vscode.test-adapter-converter",
 				"ms-vscode.cpptools-themes",
-				"zchrissirhcz.cmake-highlight"
+				"zchrissirhcz.cmake-highlight",
+				"lextudio.restructuredtext-pack"
 			]
 		}
 	},
