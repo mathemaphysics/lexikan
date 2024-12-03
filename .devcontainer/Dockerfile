@@ -23,6 +23,7 @@ RUN apk add \
         python3 \
         py3-numpy \
         py3-numpy-dev \
+        py3-pip \
         poco-dev \
         sudo
 
