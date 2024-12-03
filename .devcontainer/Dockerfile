@@ -25,6 +25,7 @@ RUN apk add \
         py3-numpy-dev \
         py3-pip \
         poco-dev \
+        qt6-qtbase \
         sudo
 
 RUN adduser --uid ${DEVUID} --disabled-password --gecos "" ${DEVUSER} \
