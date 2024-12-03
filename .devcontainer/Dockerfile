@@ -26,6 +26,8 @@ RUN apk add \
         py3-pip \
         poco-dev \
         qt6-qtbase \
+        py3-pybind11 \
+        py3-pybind11-dev \
         sudo
 
 RUN adduser --uid ${DEVUID} --disabled-password --gecos "" ${DEVUSER} \
