@@ -8,7 +8,13 @@
             "binaryDir": "build/${presetName}",
             "installDir": "install/${presetName}",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
+                "CMAKE_BUILD_TYPE": "Release",
+                "BUILD_PYTHON": "ON",
+                "BUILD_PLUGIN": "ON",
+                "BUILD_DOC": "ON",
+                "WITH_JSONCPP": "ON",
+                "WITH_POCO": "ON",
+                "WITH_PYBIND11": "ON"
             }
         },
         {
@@ -18,7 +24,13 @@
             "binaryDir": "build/${presetName}",
             "installDir": "install/${presetName}",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "BUILD_PYTHON": "ON",
+                "BUILD_PLUGIN": "ON",
+                "BUILD_DOC": "ON",
+                "WITH_JSONCPP": "ON",
+                "WITH_POCO": "ON",
+                "WITH_PYBIND11": "ON"
             }
         }
     ],
