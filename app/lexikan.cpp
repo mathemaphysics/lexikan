@@ -60,8 +60,5 @@ int main(int argc, char** argv)
 
 	logger->info("Welcome to lexikan!");
 
-	lexikan::Base x;
-	logger->info("Object UUID: {}", lexikan::IHasUUID::toString(x.getUUID()));
-
 	return 0;
 }

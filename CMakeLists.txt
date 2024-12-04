@@ -12,6 +12,7 @@ option( BUILD_PLUGIN "Build the plugin architecture" ON )
 option( BUILD_DOC "Build the documentation" OFF )
 option( WITH_JSONCPP "Build with JsonCpp library" ON )
 option( WITH_POCO "Build with POCO library" ON )
+option( WITH_PYBIND11 "Build pybind11 targets" ON )
 
 # Configure the headers
 configure_file(
@@ -61,6 +62,13 @@ if (BUILD_PYTHON)
         COMPONENTS
             Development
             NumPy
+    )
+
+    find_package(
+        pybind11
+        REQUIRED
+        COMPONENTS
+            
     )
 endif()
 

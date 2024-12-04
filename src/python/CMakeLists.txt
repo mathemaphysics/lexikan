@@ -18,3 +18,7 @@ set (
 add_library(${target} SHARED ${sources} ${headers})
 target_link_libraries(${target} ${libs})
 set_target_properties(${target} PROPERTIES PREFIX "")
+
+if (WITH_PYBIND11)
+    add_subdirectory(pybind11)
+endif()
