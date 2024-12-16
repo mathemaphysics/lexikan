@@ -23,7 +23,8 @@
 				"ms-vscode.test-adapter-converter",
 				"ms-vscode.cpptools-themes",
 				"zchrissirhcz.cmake-highlight",
-				"lextudio.restructuredtext-pack"
+				"lextudio.restructuredtext-pack",
+				"josetr.cmake-language-support-vscode"
 			]
 		}
 	},

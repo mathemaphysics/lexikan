@@ -57,6 +57,15 @@ int main(int argc, char** argv)
 		logger->error("Bad option: {}", ex.what());
 		options.print(std::cerr);
 	}
+	catch (po::error_with_option_name& ex)
+	{
+		logger->error("Option error: {}", ex.what());
+		options.print(std::cerr);
+	}
+	catch (...)
+	{
+		logger->error("Unknown exception caught");
+	}
 
 	logger->info("Welcome to lexikan!");
 
