@@ -18,7 +18,9 @@
 
 namespace lexikan
 {
-    class UsbDevice : public IHasUUID, public std::enable_shared_from_this<UsbDevice>
+    class UsbDevice
+        : public IHasUUID,
+          public std::enable_shared_from_this<UsbDevice>
     {
     public:
         using Ptr = std::shared_ptr<UsbDevice>;

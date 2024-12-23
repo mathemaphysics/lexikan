@@ -19,20 +19,24 @@
 
 namespace lexikan
 {
-    class UsbInterface : public IHasUUID
+    class UsbInterface
+        : public IHasUUID,
+          public std::enable_shared_from_this<UsbInterface>
     {
     public:
         using Ptr = std::shared_ptr<UsbInterface>;
         using ConstPtr = std::shared_ptr<UsbInterface const>;
         using WeakPtr = std::weak_ptr<UsbInterface>;
 
-        UsbInterface();
-        UsbInterface(UsbInterface&&) = default;
+        static Ptr create();
+        Ptr getPtr();
         ~UsbInterface();
 
-        std::vector<libusb_device*> getDeviceList();
+        std::vector<libusb_device_descriptor> getDeviceList();
 
     private:
+        UsbInterface();
+
         // Methods
         int initialize();
         void finalize();
@@ -41,6 +45,6 @@ namespace lexikan
         // Members
         libusb_context *_context;
         libusb_device **_devices;
-        std::vector<libusb_device*> _deviceList;
+        std::vector<libusb_device_descriptor> _deviceList;
     };
 }
