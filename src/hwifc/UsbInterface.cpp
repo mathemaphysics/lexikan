@@ -11,7 +11,7 @@ namespace lexikan
         : _context{NULL},
           _devices{NULL}
     {
-
+        initialize();
     }
 
     UsbInterface::Ptr UsbInterface::create()
@@ -26,7 +26,7 @@ namespace lexikan
 
     UsbInterface::~UsbInterface()
     {
-
+        finalize();
     }
     
     std::vector<libusb_device_descriptor>& UsbInterface::getDeviceList()
@@ -48,6 +48,10 @@ namespace lexikan
             }
         }
 
+        // Clean up; all descriptions are now in _deviceList
+        if (_devices)
+            libusb_free_device_list(_devices, 1);
+
         return _deviceList;
     }
 
@@ -62,6 +66,8 @@ namespace lexikan
 
     void UsbInterface::finalize()
     {
+        if (_devices)
+            libusb_free_device_list(_devices, 1);
         libusb_exit(_context);
     }
 }
