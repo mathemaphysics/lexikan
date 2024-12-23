@@ -29,15 +29,16 @@ namespace lexikan
 
     }
     
-    std::vector<libusb_device_descriptor> UsbInterface::getDeviceList()
+    std::vector<libusb_device_descriptor>& UsbInterface::getDeviceList()
     {
         // Get a list of USB devices
         auto count = libusb_get_device_list(_context, &_devices);
-        _deviceList.resize(count);
+        _deviceList.clear();
 
         // Get the device descriptor
         for(std::size_t devIdx = 0; devIdx < count; ++devIdx)
         {
+            // Allocate onto the end in-place as we go
             auto& desc = _deviceList.emplace_back();
             int rc = libusb_get_device_descriptor(_devices[devIdx], &desc);
             if (rc < 0)

@@ -32,7 +32,7 @@ namespace lexikan
         Ptr getPtr();
         ~UsbInterface();
 
-        std::vector<libusb_device_descriptor> getDeviceList();
+        std::vector<libusb_device_descriptor>& getDeviceList();
 
     private:
         UsbInterface();
