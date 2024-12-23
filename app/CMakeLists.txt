@@ -26,6 +26,7 @@ target_link_libraries(
         spdlog::spdlog
         $<$<BOOL:${WITH_JSONCPP}>:${JSONCPP_LIBRARIES}>
         "${PROJECT_NAME}Base"
+        ${LIBUSB_LIBRARIES}
 )
 
 # Specify the include directories for the library
@@ -35,6 +36,7 @@ target_include_directories(
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
         $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
+        $<BUILD_INTERFACE:${JSONCPP_INCLUDE_DIRS}>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 

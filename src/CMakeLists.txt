@@ -36,6 +36,10 @@ target_link_libraries(
         Boost::system
 )
 
+if (BUILD_HWIFC)
+    add_subdirectory(hwifc)
+endif()
+
 if (BUILD_PLUGIN)
     add_subdirectory(plugin)
 endif()

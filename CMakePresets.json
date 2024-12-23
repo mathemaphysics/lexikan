@@ -14,7 +14,8 @@
                 "BUILD_DOC": "ON",
                 "WITH_JSONCPP": "ON",
                 "WITH_POCO": "ON",
-                "WITH_PYBIND11": "ON"
+                "WITH_PYBIND11": "ON",
+                "WITH_LIBUSB": "ON"
             }
         },
         {
@@ -30,7 +31,8 @@
                 "BUILD_DOC": "ON",
                 "WITH_JSONCPP": "ON",
                 "WITH_POCO": "ON",
-                "WITH_PYBIND11": "ON"
+                "WITH_PYBIND11": "ON",
+                "WITH_LIBUSB": "ON"
             }
         }
     ],

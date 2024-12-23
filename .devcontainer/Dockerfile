@@ -28,6 +28,8 @@ RUN apk add \
         qt6-qtbase \
         py3-pybind11 \
         py3-pybind11-dev \
+        libusb-dev-1.0.27-r0 \
+        hidapi-dev \
         sudo
 
 RUN adduser --uid ${DEVUID} --disabled-password --gecos "" ${DEVUSER} \

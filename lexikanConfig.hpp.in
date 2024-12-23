@@ -1,3 +1,4 @@
 #cmakedefine WITH_JSONCPP
+#cmakedefine WITH_POCO
 #cmakedefine WITH_PYBIND11
-#define PROJECT_NAME "@PROJECT_NAME@"
+#cmakedefine WITH_LIBUSB
