@@ -50,9 +50,17 @@ namespace lexikan
 
         // Clean up; all descriptions are now in _deviceList
         if (_devices)
+        {
             libusb_free_device_list(_devices, 1);
+            _devices = NULL;
+        }
 
         return _deviceList;
+    }
+
+    libusb_context* UsbInterface::getContext()
+    {
+        return _context;
     }
 
     int UsbInterface::initialize()

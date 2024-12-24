@@ -21,9 +21,7 @@
 // src
 #include <Base.hpp>
 #include <hwifc/UsbDevice.hpp>
-
-// libusb
-#include <libusb-1.0/libusb.h>
+#include <hwifc/UsbInterface.hpp>
 
 // Shorthand names
 namespace po = boost::program_options;
@@ -73,52 +71,17 @@ int main(int argc, char** argv)
 
 	logger->info("Welcome to lexikan!");
 
-    libusb_context *ctx = NULL;
-    int rc = libusb_init(&ctx);
-    if (rc < 0) {
-        fprintf(stderr, "Failed to init libusb\n");
-        return 1;
-    }
+	std::uint16_t vendorId = 0x239a;
+	std::uint16_t deviceId = 0x802b;
 
-	libusb_device_handle *handle = libusb_open_device_with_vid_pid(ctx, 0x239a, 0x802b);
-	if (!handle) {
-		fprintf(stderr, "Cannot open device\n");
-		return 1;
-	}
+	auto usbIfc = lexikan::UsbInterface::create();
+	auto& devlist = usbIfc->getDeviceList();	
+	for (auto& dev : devlist)
+		logger->info("Vendor: 0x{0:04x} Product: 0x{1:04x}", dev.idVendor, dev.idProduct);
 
-    // Get a list of USB devices
-    libusb_device **dev_list = NULL;
-    auto count = libusb_get_device_list(ctx, &dev_list);
-    if (count < 0) {
-        fprintf(stderr, "Failed to get USB device list: %s\n", libusb_error_name((int)count));
-        libusb_exit(ctx);
-        return 1;
-    }
-
-    printf("Found %zd USB devices:\n", count);
-
-    // Iterate over all devices
-    for (std::size_t i = 0; i < count; i++) {
-        libusb_device *device = dev_list[i];
-        struct libusb_device_descriptor desc;
-
-        // Get the device descriptor
-        rc = libusb_get_device_descriptor(device, &desc);
-        if (rc < 0) {
-            fprintf(stderr, "Failed to get device descriptor: %s\n", libusb_error_name(rc));
-            continue;
-        }
-
-        // Print some basic info
-        printf("  Device %zu: VendorID=%04x, ProductID=%04x, Class=%02x, Subclass=%02x, Protocol=%02x\n",
-               i, desc.idVendor, desc.idProduct,
-               desc.bDeviceClass, desc.bDeviceSubClass, desc.bDeviceProtocol);
-    }
-
-    // Free the device list
-    libusb_free_device_list(dev_list, 1);
-
-    libusb_exit(ctx);
+	auto devPtr = lexikan::UsbDevice::create(usbIfc, vendorId, deviceId);
+	devPtr->open();
+	devPtr->close();
 
 	return 0;
 }

@@ -9,17 +9,32 @@
  */
 namespace lexikan
 {
-    UsbDevice::UsbDevice(std::uint16_t vendorId_, std::uint16_t deviceId_)
-        : _vendorId{vendorId_},
+    UsbDevice::UsbDevice(
+        UsbInterface::Ptr usbifc_,
+        std::uint16_t vendorId_,
+        std::uint16_t deviceId_
+    )
+        : _usbifc{usbifc_},
+          _vendorId{vendorId_},
           _deviceId{deviceId_},
           _device{NULL}
     {
         // Setup the device
     }
 
-    UsbDevice::Ptr UsbDevice::create(std::uint16_t vendorId_, std::uint16_t deviceId_)
+    UsbDevice::Ptr UsbDevice::create(
+        UsbInterface::Ptr usbifc_,
+        std::uint16_t vendorId_,
+        std::uint16_t deviceId_
+    )
     {
-        return Ptr(new UsbDevice(vendorId_, deviceId_));
+        return Ptr(
+            new UsbDevice(
+                usbifc_,
+                vendorId_,
+                deviceId_
+            )
+        );
     }
 
     UsbDevice::Ptr UsbDevice::getPtr()
@@ -33,17 +48,30 @@ namespace lexikan
         close();
     }
 
-    int UsbDevice::open(libusb_context* context_)
+    int UsbDevice::open()
     {
-        auto _device = libusb_open_device_with_vid_pid(context_, _vendorId, _deviceId);
+        auto _device = libusb_open_device_with_vid_pid(
+            _usbifc->getContext(),
+            _vendorId,
+            _deviceId
+        );
         if (!_device)
             return -1;
         else
             return 0;
     }
 
+    int UsbDevice::read()
+    {
+
+    }
+
     void UsbDevice::close()
     {
-        libusb_close(_device);
+        if (_device)
+        {
+            libusb_close(_device);
+            _device = NULL;
+        }
     }
 }

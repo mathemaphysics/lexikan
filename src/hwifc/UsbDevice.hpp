@@ -12,6 +12,7 @@
 
 // Local
 #include <IHasUUID.hpp>
+#include <hwifc/UsbInterface.hpp>
 
 // libusb-1.0
 #include <libusb-1.0/libusb.h>
@@ -27,16 +28,18 @@ namespace lexikan
         using ConstPtr = std::shared_ptr<UsbDevice const>;
         using WeakPtr = std::weak_ptr<UsbDevice>;
 
-        static Ptr create(std::uint16_t vendorId_, std::uint16_t deviceId_);
+        static Ptr create(UsbInterface::Ptr usbifc_, std::uint16_t vendorId_ = 0x0000, std::uint16_t deviceId_= 0x0000);
         Ptr getPtr();
         ~UsbDevice();
 
-        int open(libusb_context* context_);
+        int open();
+        int read();
         void close();
-    
+     
     private:
-        UsbDevice(std::uint16_t vendorId_, std::uint16_t deviceId_);
+        UsbDevice(UsbInterface::Ptr usbifc_, std::uint16_t vendorId_ = 0x0000, std::uint16_t deviceId_= 0x0000);
 
+        UsbInterface::Ptr _usbifc;
         std::uint16_t _vendorId;
         std::uint16_t _deviceId;
         libusb_device_handle *_device;

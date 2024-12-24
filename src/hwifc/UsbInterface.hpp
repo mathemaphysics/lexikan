@@ -34,6 +34,8 @@ namespace lexikan
 
         std::vector<libusb_device_descriptor>& getDeviceList();
 
+        libusb_context* getContext();
+
     private:
         UsbInterface();
 

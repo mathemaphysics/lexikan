@@ -26,6 +26,7 @@ target_link_libraries(
         spdlog::spdlog
         $<$<BOOL:${WITH_JSONCPP}>:${JSONCPP_LIBRARIES}>
         "${PROJECT_NAME}Base"
+        "${PROJECT_NAME}HwIfc"
         ${LIBUSB_LIBRARIES}
 )
 
@@ -35,6 +36,7 @@ target_include_directories(
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
         $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
         $<BUILD_INTERFACE:${JSONCPP_INCLUDE_DIRS}>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
