@@ -75,13 +75,29 @@ int main(int argc, char** argv)
 	std::uint16_t deviceId = 0x802b;
 
 	auto usbIfc = lexikan::UsbInterface::create();
-	auto& devlist = usbIfc->getDeviceList();	
-	for (auto& dev : devlist)
-		logger->info("Vendor: 0x{0:04x} Product: 0x{1:04x}", dev.idVendor, dev.idProduct);
+	if (usbIfc != nullptr)
+	{
+		auto& devlist = usbIfc->getDeviceList();	
+		for (auto& dev : devlist)
+			logger->info("Vendor: 0x{0:04x} Product: 0x{1:04x}", dev.idVendor, dev.idProduct);
 
-	auto devPtr = lexikan::UsbDevice::create(usbIfc, vendorId, deviceId);
-	devPtr->open();
-	devPtr->close();
+		auto devPtr = lexikan::UsbDevice::create(usbIfc, vendorId, deviceId, 0);
+
+		auto openResult = devPtr->open();
+		if (openResult < 0)
+			logger->error("Could not open device: {0}", openResult);
+		else
+		{
+			auto buffer = new unsigned char[32];
+			devPtr->read(0x83, buffer);
+			// logger->info("Data received: {0:2s}", std::string(reinterpret_cast<char*>(buffer)));
+			devPtr->close();
+		}
+	}
+	else
+	{
+		logger->error("Failed to get device list");
+	}
 
 	return 0;
 }
