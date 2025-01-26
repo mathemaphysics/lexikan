@@ -17,6 +17,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 // src
 #include <Base.hpp>
@@ -31,7 +33,7 @@ int main(int argc, char** argv)
 {
 	// Options examples
 	int opt;
-	auto logger = sp::stderr_color_mt(PROJECT_NAME);
+	auto logger = sp::stderr_color_st(PROJECT_NAME);
 
 	// Set up the program options
 	po::options_description options("Allowed options");
@@ -71,33 +73,58 @@ int main(int argc, char** argv)
 
 	logger->info("Welcome to lexikan!");
 
-	std::uint16_t vendorId = 0x239a;
-	std::uint16_t deviceId = 0x802b;
+	std::uint16_t vendorId = 0x2341;
+	std::uint16_t deviceId = 0x0070;
 
-	auto usbIfc = lexikan::UsbInterface::create();
-	if (usbIfc != nullptr)
+	libusb_init(NULL);
+
+	auto device = libusb_open_device_with_vid_pid(
+		NULL,
+		vendorId,
+		deviceId
+	);
+	if (!device)
+		return -1;
+
+	// If set automatically detach the kernel driver
+	libusb_set_auto_detach_kernel_driver(device, 1);
+	
+	std::cout << "Address of device 1: " << std::hex << device << std::endl;
+	auto result = libusb_claim_interface(device, 1);
+	if (result < 0)
 	{
-		auto& devlist = usbIfc->getDeviceList();	
-		for (auto& dev : devlist)
-			logger->info("Vendor: 0x{0:04x} Product: 0x{1:04x}", dev.idVendor, dev.idProduct);
+		std::cout << "Error: " << libusb_error_name(result) << std::endl;
+		return -2; 
+	}
+	std::cout << "Address of device 2: " << std::hex << device << std::endl;
 
-		auto devPtr = lexikan::UsbDevice::create(usbIfc, vendorId, deviceId, 0);
+	int bytesTransferred = 64;
+	std::cout << "Address of device 3: " << std::hex << device << std::endl;
+	auto buffer = new unsigned char[64];
+	int numbytes = 64;
+	for(int i = 0; i < 10; ++i)
+	{
+		auto tresult = libusb_interrupt_transfer(
+			device,
+			0x84,          // The IN endpoint address
+			buffer,            // Pointer to a single byte buffer
+			numbytes,          // Number of bytes to read
+			&bytesTransferred,  // Actual number of bytes transferred
+			1000            // Timeout in milliseconds
+		);
 
-		auto openResult = devPtr->open();
-		if (openResult < 0)
-			logger->error("Could not open device: {0}", openResult);
+		if (tresult != 0)
+			std::cout << "fail" << std::endl;
 		else
 		{
-			auto buffer = new unsigned char[32];
-			devPtr->read(0x83, buffer);
-			// logger->info("Data received: {0:2s}", std::string(reinterpret_cast<char*>(buffer)));
-			devPtr->close();
+			std::cout << "Transferred " << bytesTransferred << " bytes" << std::endl;
+			std::cout << std::string(reinterpret_cast<char*>(buffer), bytesTransferred) << std::endl;
 		}
 	}
-	else
-	{
-		logger->error("Failed to get device list");
-	}
+
+	libusb_release_interface(device, 1);
+	libusb_close(device);
+	libusb_exit(NULL);
 
 	return 0;
 }

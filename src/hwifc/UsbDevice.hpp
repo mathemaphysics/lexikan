@@ -32,21 +32,27 @@ namespace lexikan
             UsbInterface::Ptr usbifc_,
             std::uint16_t vendorId_ = 0x0000,
             std::uint16_t deviceId_= 0x0000,
-            int interfaceId_ = 0
+            int interfaceId_ = 0,
+            bool autoDetachKernel_ = true
         );
         Ptr getPtr();
         ~UsbDevice();
 
-        int open();
-        int read(unsigned char endpoint_, unsigned char* buffer_, int numbytes_ = 1, unsigned int timeout_ = 1000);
+        int open(
+            unsigned char endpoint_ = 0x0,
+            unsigned char* buffer_ = nullptr,
+            int numbytes_ = 1,
+            unsigned int timeout_ = 1000
+        );
         void close();
      
-    private:
+    //private:
         UsbDevice(
             UsbInterface::Ptr usbifc_,
             std::uint16_t vendorId_ = 0x0000,
             std::uint16_t deviceId_= 0x0000,
-            int interfaceId_ = 0
+            int interfaceId_ = 0,
+            bool autoDetachKernel_ = true
         );
 
         UsbInterface::Ptr _usbifc;
@@ -54,5 +60,6 @@ namespace lexikan
         std::uint16_t _deviceId;
         libusb_device_handle *_device;
         int _interfaceId;
+        bool _autoDetachKernel;
     };
 }
