@@ -22,8 +22,6 @@
 
 // src
 #include <Base.hpp>
-#include <hwifc/UsbDevice.hpp>
-#include <hwifc/UsbInterface.hpp>
 
 // Shorthand names
 namespace po = boost::program_options;
@@ -72,59 +70,6 @@ int main(int argc, char** argv)
 	}
 
 	logger->info("Welcome to lexikan!");
-
-	std::uint16_t vendorId = 0x2341;
-	std::uint16_t deviceId = 0x0070;
-
-	libusb_init(NULL);
-
-	auto device = libusb_open_device_with_vid_pid(
-		NULL,
-		vendorId,
-		deviceId
-	);
-	if (!device)
-		return -1;
-
-	// If set automatically detach the kernel driver
-	libusb_set_auto_detach_kernel_driver(device, 1);
-	
-	std::cout << "Address of device 1: " << std::hex << device << std::endl;
-	auto result = libusb_claim_interface(device, 1);
-	if (result < 0)
-	{
-		std::cout << "Error: " << libusb_error_name(result) << std::endl;
-		return -2; 
-	}
-	std::cout << "Address of device 2: " << std::hex << device << std::endl;
-
-	int bytesTransferred = 64;
-	std::cout << "Address of device 3: " << std::hex << device << std::endl;
-	auto buffer = new unsigned char[64];
-	int numbytes = 64;
-	for(int i = 0; i < 10; ++i)
-	{
-		auto tresult = libusb_interrupt_transfer(
-			device,
-			0x84,          // The IN endpoint address
-			buffer,            // Pointer to a single byte buffer
-			numbytes,          // Number of bytes to read
-			&bytesTransferred,  // Actual number of bytes transferred
-			1000            // Timeout in milliseconds
-		);
-
-		if (tresult != 0)
-			std::cout << "fail" << std::endl;
-		else
-		{
-			std::cout << "Transferred " << bytesTransferred << " bytes" << std::endl;
-			std::cout << std::string(reinterpret_cast<char*>(buffer), bytesTransferred) << std::endl;
-		}
-	}
-
-	libusb_release_interface(device, 1);
-	libusb_close(device);
-	libusb_exit(NULL);
 
 	return 0;
 }
